@@ -20,9 +20,4 @@ public class ProductController extends BaseController<Product,ProductService> {
         super(service);
         this.service = service;
     }
-
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Product> save(@RequestBody  Product product){
-        return ResponseEntity.ok(service.create(product));
-    }
 }
