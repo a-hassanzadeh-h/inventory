@@ -1,6 +1,8 @@
 package com.inventory.management.app.product;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.inventory.management.app.accounting.OrderLine;
 import com.inventory.management.core.base.BaseEntity;
 import lombok.Data;
@@ -21,9 +23,9 @@ public class Product extends BaseEntity {
 
     private String sku;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<OrderLine> orderLine = new ArrayList<>();
+    private List<OrderLine> orderLine;
 
 
     public void setSku(String sku) {

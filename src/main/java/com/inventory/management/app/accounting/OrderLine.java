@@ -1,5 +1,6 @@
 package com.inventory.management.app.accounting;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.inventory.management.app.accounting.purchase.Bill;
 import com.inventory.management.app.accounting.sale.Invoice;
@@ -20,7 +21,6 @@ public class OrderLine extends BaseEntity {
 
     private double price;
 
-    @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
