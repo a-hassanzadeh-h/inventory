@@ -1,14 +1,12 @@
 package com.inventory.management.app.product;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.inventory.management.app.accounting.OrderLine;
 import com.inventory.management.core.base.BaseEntity;
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +22,21 @@ public class Product extends BaseEntity {
     private String sku;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-    private List<OrderLine> orderLine;
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval = true)
+    private List<OrderLine> orderLine = new ArrayList<>();
 
 
     public void setSku(String sku) {
         this.sku = "PRD-".concat(sku);
+    }
+
+    public void addOrderLine(OrderLine orderLine) {
+        orderLine.setProduct(this);
+        this.orderLine.add(orderLine);
+    }
+
+    public void removeOrderLine(OrderLine orderLine) {
+        orderLine.setProduct(null);
+        this.orderLine.remove(orderLine);
     }
 }

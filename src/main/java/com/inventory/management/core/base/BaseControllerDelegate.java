@@ -41,7 +41,7 @@ public class BaseControllerDelegate<E extends BaseEntity, S extends BaseService<
     }
 
     @Override
-    public ResponseEntity<E> deleteById(long e) {
-        return CrudController.super.deleteById(e);
+    public ResponseEntity<E> deleteById(long id) {
+        return ResponseEntity.ok(service.deleteById(id));
     }
 }
