@@ -1,0 +1,13 @@
+server:
+  servlet:
+    context-path: /v1/api
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/inventory"
+    username: test
+    password: test
