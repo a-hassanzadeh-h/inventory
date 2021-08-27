@@ -7,13 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
 @RequestMapping("/product")
-public class ProductController extends BaseController<Product,ProductService> {
-
-    private final ProductService service;
+public class ProductController extends BaseController<Product, ProductService> {
 
     @Autowired
     public ProductController(ProductService service) {
         super(service);
-        this.service = service;
     }
 }

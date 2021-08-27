@@ -1,6 +1,6 @@
 package com.warehouse.app.partner;
 
-import org.springframework.data.repository.CrudRepository;
+import com.warehouse.core.base.BaseRepository;
 
-public interface PartnerRepository extends CrudRepository<Partner,Long> {
+public interface PartnerRepository extends BaseRepository<Partner> {
 }
