@@ -1,8 +1,8 @@
 package com.warehouse.auth.security;
 
-import com.warehouse.auth.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import com.warehouse.auth.principal.ApplicationUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,11 +17,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final ApplicationContext context;
     private final PasswordEncoder passwordEncoder;
-    private ApplicationUserDetailService applicationUserDetailService;
+    private final ApplicationUserDetailService applicationUserDetailService;
 
     @Autowired
-    public SecurityConfig(PasswordEncoder passwordEncoder, ApplicationUserDetailService applicationUserDetailService) {
+    public SecurityConfig(ApplicationContext context, PasswordEncoder passwordEncoder, ApplicationUserDetailService applicationUserDetailService) {
+        this.context = context;
         this.passwordEncoder = passwordEncoder;
         this.applicationUserDetailService = applicationUserDetailService;
     }
@@ -39,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
+                .addFilter(new LoginFilter(context))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

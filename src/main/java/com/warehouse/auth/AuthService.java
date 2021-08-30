@@ -10,8 +10,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthService {
@@ -40,7 +45,7 @@ public class AuthService {
                 .build();
         userService.create(user);
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(auth.getUsername(), auth.getPassword());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(auth.getUsername(), auth.getPassword(), List.of(new SimpleGrantedAuthority("USER")));
         return response(this.jwtService.create(authentication));
 
     }

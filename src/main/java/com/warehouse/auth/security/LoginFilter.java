@@ -2,10 +2,16 @@ package com.warehouse.auth.security;
 
 import com.warehouse.auth.jwt.JwtService;
 import com.warehouse.auth.model.AuthProperties;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import org.springframework.context.ApplicationContext;
+import org.springframework.orm.hibernate5.SpringSessionContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.util.AntPathMatcher;
 
@@ -15,6 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class LoginFilter extends BasicAuthenticationFilter {
@@ -42,17 +51,18 @@ public class LoginFilter extends BasicAuthenticationFilter {
         try {
             String jws = request.getHeader("Authorization");
 
-            Authentication authentication = jwtService.parse(jws);
+            Jws<Claims> claims =  jwtService.parse(jws);
+            Claims body = claims.getBody();
+            List<Map<String, String>> authorities = (List<Map<String, String>>) body.get("authorities");
+            List<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream().map(a -> new SimpleGrantedAuthority(a.get("authority"))).collect(Collectors.toList());
 
-            AuthenticationManager authenticationManager = getAuthenticationManager();
-            authenticationManager.authenticate(authentication);
-        }catch (Exception e){
+            Authentication authentication = new UsernamePasswordAuthenticationToken(body.getSubject(),null,simpleGrantedAuthorities);
 
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            chain.doFilter(request,response);
+        }catch (AuthenticationException e){
+            throw e;
         }
-    }
-
-    @Override
-    protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException {
-        super.onSuccessfulAuthentication(request, response, authResult);
     }
 }

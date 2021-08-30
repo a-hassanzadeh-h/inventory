@@ -1,10 +1,11 @@
 package com.warehouse.auth.jwt;
 
 import com.warehouse.auth.model.AuthProperties;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -33,15 +34,12 @@ public class JwtService {
         return this.properties.getJwt().getPrefix().concat(" " + token);
     }
 
-    public Authentication parse(String jws){
+    public Jws<Claims> parse(String jws) {
         AuthProperties.AuthJwt jwt = properties.getJwt();
-        String subject = Jwts.parserBuilder()
+        return Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(jwt.getKey().getBytes()))
                 .build()
-                .parseClaimsJws(jws)
-                .getBody()
-                .getSubject();
-        return new UsernamePasswordAuthenticationToken(subject,null);
+                .parseClaimsJws(jws.replace(jwt.getPrefix(), "").replace(" ",""));
     }
 
 }
