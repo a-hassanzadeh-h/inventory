@@ -11,3 +11,19 @@ spring:
     url: "jdbc:postgresql://localhost:5432/inventory"
     username: test
     password: test
+
+auth:
+  whitelist:
+    - /auth/**
+  jwt:
+    prefix: Bearer
+    key: f85K#VzHazQFby$cal1b%gXAxnZ@JqV^JHiUPPg!lev8IyGeWzNBs8*rCNJ$MTuela0f9&8lOJNy*Y#G9o$&cl#WWA4l8d4zdwU
+    expiration: 10
+
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web:
+            FilterChainProxy=DEBUG:

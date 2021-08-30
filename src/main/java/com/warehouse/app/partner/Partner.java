@@ -2,7 +2,7 @@ package com.warehouse.app.partner;
 
 import com.warehouse.app.accounting.purchase.Bill;
 import com.warehouse.app.accounting.sale.Invoice;
-import com.warehouse.auth.User;
+import com.warehouse.app.user.User;
 import com.warehouse.core.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;

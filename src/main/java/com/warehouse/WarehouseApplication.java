@@ -10,15 +10,17 @@ import com.warehouse.app.partner.Partner;
 import com.warehouse.app.partner.PartnerRepository;
 import com.warehouse.app.product.Product;
 import com.warehouse.app.product.ProductRepository;
-import com.warehouse.auth.User;
-import com.warehouse.auth.UserRepository;
+import com.warehouse.app.user.User;
+import com.warehouse.app.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 import javax.annotation.PostConstruct;
 
 @SpringBootApplication
+@ConfigurationPropertiesScan
 public class WarehouseApplication {
 
 	@Autowired
