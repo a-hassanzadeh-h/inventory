@@ -1,4 +1,4 @@
-package com.warehouse.auth.principal;
+package com.warehouse.auth.base.principal;
 
 import com.warehouse.app.user.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 public class ApplicationUserDetail implements UserDetails {
 

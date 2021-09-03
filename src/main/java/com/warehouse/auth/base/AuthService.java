@@ -1,8 +1,8 @@
-package com.warehouse.auth;
+package com.warehouse.auth.base;
 
-import com.warehouse.auth.jwt.JwtService;
-import com.warehouse.auth.model.AuthenticationRequest;
-import com.warehouse.auth.model.AuthenticationResponse;
+import com.warehouse.auth.base.jwt.JwtService;
+import com.warehouse.auth.base.model.AuthenticationRequest;
+import com.warehouse.auth.base.model.AuthenticationResponse;
 import com.warehouse.app.user.User;
 import com.warehouse.app.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AuthService {

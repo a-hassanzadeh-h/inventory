@@ -1,4 +1,4 @@
-package com.warehouse.auth.security;
+package com.warehouse.auth.base.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

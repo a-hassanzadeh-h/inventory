@@ -1,4 +1,4 @@
-package com.warehouse.auth.model;
+package com.warehouse.auth.base.model;
 
 import lombok.Builder;
 import lombok.Data;

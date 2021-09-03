@@ -1,4 +1,4 @@
-package com.warehouse.auth.security;
+package com.warehouse.auth.base.security;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.warehouse.auth.security.UserPermission.*;
+import static com.warehouse.auth.base.security.UserPermission.*;
 
 
 public enum UserRole {

@@ -1,13 +1,12 @@
-package com.warehouse.auth;
+package com.warehouse.auth.base;
 
-import com.warehouse.auth.model.AuthenticationRequest;
-import com.warehouse.auth.model.AuthenticationResponse;
+import com.warehouse.auth.base.model.AuthenticationRequest;
+import com.warehouse.auth.base.model.AuthenticationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

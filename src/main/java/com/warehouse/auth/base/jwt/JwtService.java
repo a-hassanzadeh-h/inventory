@@ -1,6 +1,6 @@
-package com.warehouse.auth.jwt;
+package com.warehouse.auth.base.jwt;
 
-import com.warehouse.auth.model.AuthProperties;
+import com.warehouse.auth.base.model.AuthProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

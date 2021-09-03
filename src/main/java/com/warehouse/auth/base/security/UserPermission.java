@@ -1,4 +1,4 @@
-package com.warehouse.auth.security;
+package com.warehouse.auth.base.security;
 
 public enum UserPermission {
     STUDENT_READ("student:read"),

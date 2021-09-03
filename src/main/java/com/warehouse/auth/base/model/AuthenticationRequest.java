@@ -1,4 +1,4 @@
-package com.warehouse.auth.model;
+package com.warehouse.auth.base.model;
 
 public class AuthenticationRequest {
 

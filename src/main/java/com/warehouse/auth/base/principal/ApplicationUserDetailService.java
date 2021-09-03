@@ -1,4 +1,4 @@
-package com.warehouse.auth.principal;
+package com.warehouse.auth.base.principal;
 
 import com.warehouse.app.user.User;
 import com.warehouse.app.user.UserService;
