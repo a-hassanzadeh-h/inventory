@@ -1,10 +1,13 @@
 package com.warehouse.auth.base;
 
+import com.warehouse.app.user.User;
+import com.warehouse.app.user.UserService;
 import com.warehouse.auth.base.jwt.JwtService;
 import com.warehouse.auth.base.model.AuthenticationRequest;
 import com.warehouse.auth.base.model.AuthenticationResponse;
-import com.warehouse.app.user.User;
-import com.warehouse.app.user.UserService;
+import com.warehouse.auth.base.principal.ApplicationUserDetail;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,7 +53,9 @@ public class AuthService {
 
     //todo why my custom exception didnt throw
     public AuthenticationResponse login(AuthenticationRequest auth) throws AuthenticationException {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(auth.getUsername(), auth.getPassword());
+        User user = userService.findByUsername(auth.getUsername()).orElseThrow();
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(new ApplicationUserDetail(user), auth.getPassword());
         try {
             Authentication authenticate = authenticationManager.authenticate(authentication);
             if (authenticate.isAuthenticated())
@@ -61,6 +66,15 @@ public class AuthService {
         } catch (AuthenticationException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void authorize(String jws) {
+
+        Jws<Claims> claims = jwtService.parse(jws);
+        Claims body = claims.getBody();
+        User user = userService.findById(Long.parseLong(body.getSubject()));
+
+        AuthContext.setUser(user);
     }
 
     private AuthenticationResponse response(String token) {

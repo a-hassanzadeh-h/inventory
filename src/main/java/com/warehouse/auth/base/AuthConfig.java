@@ -1,5 +1,6 @@
 package com.warehouse.auth.base;
 
+import com.warehouse.auth.base.model.AuthProperties;
 import com.warehouse.auth.base.principal.ApplicationUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -18,12 +19,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AuthConfig extends WebSecurityConfigurerAdapter {
 
     private final ApplicationContext context;
+
+    private final AuthProperties properties;
+
     private final PasswordEncoder passwordEncoder;
+
     private final ApplicationUserDetailService applicationUserDetailService;
 
     @Autowired
-    public AuthConfig(ApplicationContext context, PasswordEncoder passwordEncoder, ApplicationUserDetailService applicationUserDetailService) {
+    public AuthConfig(ApplicationContext context, AuthProperties properties, PasswordEncoder passwordEncoder, ApplicationUserDetailService applicationUserDetailService) {
         this.context = context;
+        this.properties = properties;
         this.passwordEncoder = passwordEncoder;
         this.applicationUserDetailService = applicationUserDetailService;
     }
@@ -36,7 +42,7 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/auth/**")
+                .antMatchers(properties.getWhiteList())
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -47,7 +53,9 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(applicationUserDetailService)
+        auth.
+                eraseCredentials(false).
+                userDetailsService(applicationUserDetailService)
                 .passwordEncoder(passwordEncoder);
     }
 

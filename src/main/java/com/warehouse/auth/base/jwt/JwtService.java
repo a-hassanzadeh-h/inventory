@@ -1,6 +1,7 @@
 package com.warehouse.auth.base.jwt;
 
 import com.warehouse.auth.base.model.AuthProperties;
+import com.warehouse.auth.base.principal.ApplicationUserDetail;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -24,8 +25,9 @@ public class JwtService {
 
     public String create(Authentication authentication) {
         AuthProperties.AuthJwt jwt = properties.getJwt();
+        ApplicationUserDetail userDetail= (ApplicationUserDetail) authentication.getPrincipal();
         String token = Jwts.builder()
-                .setSubject(authentication.getName())
+                .setSubject(userDetail.getUser().getId().toString())
                 .claim("authorities", authentication.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwt.getExpiration())))
