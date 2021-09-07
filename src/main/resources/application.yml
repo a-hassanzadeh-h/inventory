@@ -2,9 +2,14 @@ server:
   servlet:
     context-path: /v1/api
 spring:
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: filesystem:src/main/resources/db/migration
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   datasource:
@@ -22,6 +27,5 @@ auth:
 
 logging:
   level:
-    org:
-      springframework:
-        security=DEBUG:
+#    root: debug
+    org.springframework.security: DEBUG

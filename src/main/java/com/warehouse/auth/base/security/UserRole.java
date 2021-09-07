@@ -11,9 +11,9 @@ import static com.warehouse.auth.base.security.UserPermission.*;
 
 
 public enum UserRole {
-    ADMIN(new HashSet<UserPermission>(Arrays.asList(COURSE_READ, COURSE_WRITE, STUDENT_READ, STUDENT_WRITE))),
-    ADMINTRAINEE(new HashSet<UserPermission>(Arrays.asList(COURSE_READ, STUDENT_READ))),
-    STUDENT(new HashSet<UserPermission>());
+    CUSTOMER(new HashSet<UserPermission>(Arrays.asList(INVOICE_READ, INVOICE_WRITE))),
+    VENDOR(new HashSet<UserPermission>(Arrays.asList(BILL_READ, BILL_WRITE))),
+    USER(new HashSet<UserPermission>(Arrays.asList(PRODUCT_READ, PRODUCT_WRITE, BILL_READ, BILL_WRITE, INVOICE_READ, INVOICE_WRITE)));
 
     private final Set<UserPermission> permissions;
 

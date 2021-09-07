@@ -13,11 +13,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AuthService {
@@ -42,11 +39,11 @@ public class AuthService {
                 builder().
                 username(auth.getUsername()).
                 password(passwordEncoder.encode(auth.getPassword()))
-                .role("USER")
+                .role(auth.getRole())
                 .build();
-        userService.create(user);
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(auth.getUsername(), auth.getPassword(), List.of(new SimpleGrantedAuthority("USER")));
+        User created = userService.create(user);
+        ApplicationUserDetail userDetail = new ApplicationUserDetail(created);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetail, auth.getPassword(), userDetail.getAuthorities());
         return response(this.jwtService.create(authentication));
 
     }
@@ -57,11 +54,8 @@ public class AuthService {
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(new ApplicationUserDetail(user), auth.getPassword());
         try {
-            Authentication authenticate = authenticationManager.authenticate(authentication);
-            if (authenticate.isAuthenticated())
-                return response(this.jwtService.create(authentication));
-            else throw new RuntimeException(String.format("credential $1 is not correct", auth));
-
+            authenticationManager.authenticate(authentication);
+            return response(this.jwtService.create(authentication));
 
         } catch (AuthenticationException e) {
             throw new RuntimeException(e);

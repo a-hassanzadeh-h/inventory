@@ -1,9 +1,12 @@
 package com.warehouse.auth.base.model;
 
+import com.warehouse.auth.base.security.UserRole;
+
 public class AuthenticationRequest {
 
     private String username;
     private String password;
+    private UserRole role;
 
     public AuthenticationRequest() {
     }
@@ -22,5 +25,13 @@ public class AuthenticationRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }

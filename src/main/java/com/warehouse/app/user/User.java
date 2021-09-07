@@ -2,15 +2,14 @@ package com.warehouse.app.user;
 
 import com.sun.istack.NotNull;
 import com.warehouse.app.partner.Partner;
+import com.warehouse.auth.base.security.UserRole;
 import com.warehouse.core.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -26,8 +25,8 @@ public class User extends BaseEntity {
     @NotNull
     private String password;
 
-    // todo change from string to UserRole
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @OneToOne(mappedBy = "user")
     private Partner partner;
