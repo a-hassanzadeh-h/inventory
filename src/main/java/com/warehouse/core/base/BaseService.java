@@ -1,8 +1,6 @@
 package com.warehouse.core.base;
 
 import com.warehouse.app.product.Product;
-import com.warehouse.app.user.User;
-import com.warehouse.auth.base.AuthContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.security.acls.domain.ObjectIdentityImpl;
 import org.springframework.security.acls.domain.PrincipalSid;
 import org.springframework.security.acls.model.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.springframework.security.acls.domain.BasePermission.READ;
@@ -31,12 +28,8 @@ public abstract class BaseService<E extends BaseEntity, R extends BaseRepository
         this.repository = repository;
     }
 
-    @Transactional
     public E create(E e) {
-        User user = AuthContext.getUser().orElseThrow();
-        E created = repository.save(initials(e));
-        grantPermission(user.getUsername(), created, new Permission[]{Permission.READ, Permission.WRITE});
-        return created;
+        return repository.save(initials(e));
     }
 
     public E findById(long id) {

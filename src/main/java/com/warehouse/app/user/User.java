@@ -20,6 +20,7 @@ import javax.persistence.*;
 public class User extends BaseEntity {
 
     @NotNull
+    @Column(unique = true)
     private String username;
 
     @NotNull
