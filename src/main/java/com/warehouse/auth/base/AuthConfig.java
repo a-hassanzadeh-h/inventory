@@ -2,6 +2,7 @@ package com.warehouse.auth.base;
 
 import com.warehouse.auth.base.model.AuthProperties;
 import com.warehouse.auth.base.principal.ApplicationUserDetailService;
+import com.warehouse.auth.base.security.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -44,6 +45,12 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(properties.getWhiteList())
                 .permitAll()
+                .antMatchers("/user/**")
+                .hasRole(UserRole.USER.name())
+                .antMatchers("/vendor/**")
+                .hasRole(UserRole.VENDOR.name())
+                .antMatchers("/customer/**")
+                .hasRole(UserRole.CUSTOMER.name())
                 .anyRequest()
                 .authenticated()
                 .and()
