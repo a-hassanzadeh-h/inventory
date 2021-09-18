@@ -16,7 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 public class AuthConfig extends WebSecurityConfigurerAdapter {
 
     private final ApplicationContext context;
@@ -45,6 +45,8 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(properties.getWhiteList())
                 .permitAll()
+                .antMatchers("/admin/**")
+                .hasRole(UserRole.ADMIN.name())
                 .antMatchers("/user/**")
                 .hasRole(UserRole.USER.name())
                 .antMatchers("/vendor/**")

@@ -1,13 +1,13 @@
 package com.warehouse.core.base;
 
-import com.warehouse.core.CrudController;
+import com.warehouse.core.CrudControllerDelegate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public class BaseControllerDelegate<E extends BaseEntity, S extends BaseService<E, ?>> implements CrudController<E> {
+public class BaseControllerDelegate<E extends BaseEntity, S extends BaseService<E, ?>> implements CrudControllerDelegate<E> {
 
     private final S service;
 
@@ -43,5 +43,15 @@ public class BaseControllerDelegate<E extends BaseEntity, S extends BaseService<
     @Override
     public ResponseEntity<E> deleteById(long id) {
         return ResponseEntity.ok(service.deleteById(id));
+    }
+
+    @Override
+    public E serialize(E e) {
+        return service.serialize(e);
+    }
+
+    @Override
+    public E deserialize(E e) {
+        return service.deserialize(e);
     }
 }

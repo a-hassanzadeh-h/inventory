@@ -1,9 +1,10 @@
 package com.warehouse.core.base;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.warehouse.app.product.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.acls.domain.ObjectIdentityImpl;
@@ -17,15 +18,17 @@ import static org.springframework.security.acls.domain.BasePermission.WRITE;
 
 public abstract class BaseService<E extends BaseEntity, R extends BaseRepository<E>> {
 
-    private final Logger logger = LoggerFactory.getLogger(BaseService.class);
+    protected final ObjectMapper mapper;
+    protected final Logger logger = LoggerFactory.getLogger(BaseService.class);
+    protected final R repository;
+    protected ApplicationContext context;
+    protected MutableAclService aclService;
 
-    private final R repository;
-
-    @Autowired
-    private MutableAclService aclService;
-
-    public BaseService(R repository) {
+    public BaseService(ApplicationContext context, R repository) {
+        this.context = context;
         this.repository = repository;
+        this.mapper = context.getBean(ObjectMapper.class);
+        this.aclService = context.getBean(MutableAclService.class);
     }
 
     public E create(E e) {
@@ -74,6 +77,14 @@ public abstract class BaseService<E extends BaseEntity, R extends BaseRepository
         e.created = null;
         e.updated = null;
         return e;
+    }
+
+    public E serialize(E e) {
+        return e;
+    }
+
+    public E deserialize(E e) {
+        return mapper.convertValue(e,(Class<? extends E>) e.getClass());
     }
 
     public void grantPermission(String principal, E e, Permission[] permissions) {

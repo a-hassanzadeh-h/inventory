@@ -2,6 +2,7 @@ package com.warehouse.app.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.warehouse.app.accounting.OrderLine;
+import com.warehouse.app.inventory.Stock;
 import com.warehouse.core.base.BaseEntity;
 import lombok.Data;
 
@@ -24,6 +25,9 @@ public class Product extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = {CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval = true)
     private List<OrderLine> orderLine = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product")
+    private List<Stock> stocks = new ArrayList<>();
 
 
     public void setSku(String sku) {

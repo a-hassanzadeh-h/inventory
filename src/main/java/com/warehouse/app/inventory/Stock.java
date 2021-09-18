@@ -1,5 +1,6 @@
 package com.warehouse.app.inventory;
 
+import com.warehouse.app.product.Product;
 import com.warehouse.core.base.BaseEntity;
 import lombok.Data;
 
@@ -15,10 +16,10 @@ public class Stock extends BaseEntity {
     private int quantity;
 
     @ManyToOne
-    @JoinColumn(name = "space_id")
-    private Space space;
+    @JoinColumn
+    private Product product;
 
-    @OneToOne
-    @JoinColumn(name = "stock_transaction_id")
-    private StockTransaction stockTransaction;
+    @ManyToOne
+    @JoinColumn
+    private Space space;
 }

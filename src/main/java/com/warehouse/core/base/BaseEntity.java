@@ -16,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 public abstract class BaseEntity {
     @Id
-    @SequenceGenerator(name = "inventory_sequence",sequenceName = "inventory_sequence")
+    @SequenceGenerator(name = "inventory_sequence",sequenceName = "inventory_sequence", allocationSize = 1)
     @GeneratedValue(generator = "inventory_sequence")
     protected Long id;
 

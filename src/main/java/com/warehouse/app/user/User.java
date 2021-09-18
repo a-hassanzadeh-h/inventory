@@ -28,11 +28,4 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
-    @OneToOne(mappedBy = "user")
-    private Partner partner;
-
-    public User(String username){
-        this.username = username;
-    }
 }
