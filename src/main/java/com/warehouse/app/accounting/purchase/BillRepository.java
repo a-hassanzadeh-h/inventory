@@ -1,6 +1,8 @@
 package com.warehouse.app.accounting.purchase;
 
-import org.springframework.data.repository.CrudRepository;
+import com.warehouse.core.base.BaseRepository;
+import org.springframework.stereotype.Repository;
 
-public interface BillRepository extends CrudRepository<Bill,Long> {
+@Repository
+public interface BillRepository extends BaseRepository<Bill> {
 }

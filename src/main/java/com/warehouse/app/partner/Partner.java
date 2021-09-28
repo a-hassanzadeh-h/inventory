@@ -1,5 +1,6 @@
 package com.warehouse.app.partner;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.warehouse.app.accounting.purchase.Bill;
 import com.warehouse.app.accounting.sale.Invoice;
 import com.warehouse.app.user.User;
@@ -30,12 +31,11 @@ public class Partner extends BaseEntity {
     private String lastName;
 
     @OneToMany(mappedBy = "partner")
+    @JsonIgnore
     private List<Bill> bills = new ArrayList<>();
 
     @OneToMany(mappedBy = "partner")
+    @JsonIgnore
     private List<Invoice> invoices = new ArrayList<>();
 
-    public Partner(User user){
-        this.user = user;
-    }
 }

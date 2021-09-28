@@ -1,14 +1,11 @@
 package com.warehouse.app.product;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.warehouse.app.accounting.OrderLine;
+import com.warehouse.app.accounting.orderLine.OrderLine;
 import com.warehouse.app.inventory.Stock;
 import com.warehouse.core.base.BaseEntity;
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +19,7 @@ public class Product extends BaseEntity {
 
     private String sku;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval = true)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
     private List<OrderLine> orderLine = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
@@ -34,13 +30,4 @@ public class Product extends BaseEntity {
         this.sku = "PRD-".concat(sku);
     }
 
-    public void addOrderLine(OrderLine orderLine) {
-        orderLine.setProduct(this);
-        this.orderLine.add(orderLine);
-    }
-
-    public void removeOrderLine(OrderLine orderLine) {
-        orderLine.setProduct(null);
-        this.orderLine.remove(orderLine);
-    }
 }

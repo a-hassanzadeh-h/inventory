@@ -1,6 +1,6 @@
 package com.warehouse.app.accounting.sale;
 
-import com.warehouse.app.accounting.OrderLine;
+import com.warehouse.app.accounting.orderLine.OrderLine;
 import com.warehouse.app.partner.Partner;
 import com.warehouse.core.base.BaseEntity;
 import lombok.Data;

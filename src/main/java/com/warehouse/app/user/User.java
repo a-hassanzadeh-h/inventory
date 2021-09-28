@@ -1,5 +1,6 @@
 package com.warehouse.app.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 import com.warehouse.app.partner.Partner;
 import com.warehouse.auth.base.security.UserRole;
@@ -24,6 +25,7 @@ public class User extends BaseEntity {
     private String username;
 
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Enumerated(EnumType.STRING)
