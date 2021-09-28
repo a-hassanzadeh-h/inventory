@@ -31,15 +31,4 @@ public class Space extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "space", orphanRemoval = true)
     private List<Stock> stocks = new ArrayList<>();
-
-//
-//    public Space setChildren(List<Space> children) {
-//        this.children.clear();
-//        if (children != null)
-//            for (Space s : children) {
-//                this.children.add(s);
-//                s.setParent(this);
-//            }
-//        return this;
-//    }
 }

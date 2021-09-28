@@ -10,13 +10,13 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   datasource:
-    url: "jdbc:postgresql://localhost:5432/inventory"
-    username: test
-    password: test
+    url: "jdbc:postgresql://localhost:5432/warehouse"
+    username: steve
+    password: steve
 
 auth:
   whitelist:

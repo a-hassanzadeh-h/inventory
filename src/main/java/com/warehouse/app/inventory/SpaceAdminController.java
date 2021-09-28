@@ -16,4 +16,12 @@ public class SpaceAdminController extends BaseController<Space, SpaceService> {
         super(service);
         this.service = service;
     }
+
+    @GetMapping("/name/{id}")
+    public ResponseEntity<Space> getFullName(@PathVariable long id) {
+        Space space = service.findById(id);
+        String fullName = service.getFullName(space);
+        space.setName(fullName);
+        return ResponseEntity.ok(space);
+    }
 }
