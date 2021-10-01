@@ -1,4 +1,4 @@
-package com.warehouse.app.inventory;
+package com.warehouse.app.inventory.space;
 
 import com.warehouse.core.base.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;

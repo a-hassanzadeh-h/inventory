@@ -2,11 +2,10 @@ package com.warehouse.app.accounting.orderLine;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.warehouse.app.accounting.purchase.Bill;
+import com.warehouse.app.accounting.purchase.model.Bill;
 import com.warehouse.app.accounting.sale.Invoice;
-import com.warehouse.app.inventory.Stock;
+import com.warehouse.app.inventory.stock.Stock;
 import com.warehouse.app.product.Product;
 import com.warehouse.core.base.BaseEntity;
 import lombok.Data;
@@ -38,4 +37,5 @@ public class OrderLine extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderLine")
     private List<Stock> stocks = new ArrayList<>();
+
 }

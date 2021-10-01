@@ -1,6 +1,7 @@
-package com.warehouse.app.inventory;
+package com.warehouse.app.inventory.stock;
 
 import com.warehouse.app.accounting.orderLine.OrderLine;
+import com.warehouse.app.inventory.space.Space;
 import com.warehouse.app.product.Product;
 import com.warehouse.core.base.BaseEntity;
 import lombok.Data;
@@ -20,8 +21,4 @@ public class Stock extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Space space;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
-    private OrderLine orderLine;
 }

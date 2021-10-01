@@ -1,6 +1,6 @@
-package com.warehouse.app.inventory;
+package com.warehouse.app.inventory.space;
 
-import com.fasterxml.jackson.annotation.*;
+import com.warehouse.app.inventory.stock.Stock;
 import com.warehouse.core.base.BaseEntity;
 import lombok.Data;
 import lombok.ToString;

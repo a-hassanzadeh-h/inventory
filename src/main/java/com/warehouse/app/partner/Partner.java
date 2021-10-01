@@ -1,7 +1,7 @@
 package com.warehouse.app.partner;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.warehouse.app.accounting.purchase.Bill;
+import com.warehouse.app.accounting.purchase.model.Bill;
 import com.warehouse.app.accounting.sale.Invoice;
 import com.warehouse.app.user.User;
 import com.warehouse.core.base.BaseEntity;

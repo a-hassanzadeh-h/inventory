@@ -1,5 +1,6 @@
 package com.warehouse.app.accounting.purchase;
 
+import com.warehouse.app.accounting.purchase.model.Bill;
 import com.warehouse.core.base.BaseRepository;
 import org.springframework.stereotype.Repository;
 

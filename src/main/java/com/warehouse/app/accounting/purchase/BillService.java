@@ -1,5 +1,7 @@
 package com.warehouse.app.accounting.purchase;
 
+import com.warehouse.app.accounting.purchase.model.Bill;
+import com.warehouse.app.accounting.purchase.model.BillStatus;
 import com.warehouse.app.partner.Partner;
 import com.warehouse.app.partner.PartnerService;
 import com.warehouse.app.user.User;
@@ -26,6 +28,7 @@ public class BillService extends BaseService<Bill, BillRepository> {
         User user = AuthContext.getUser().orElseThrow();
         Partner partner = partnerService.findByUser(user);
         bill.setPartner(partner);
+        bill.setStatus(BillStatus.ORDERED);
         return super.create(bill);
     }
 

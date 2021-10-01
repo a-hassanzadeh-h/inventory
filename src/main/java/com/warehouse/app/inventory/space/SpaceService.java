@@ -1,12 +1,9 @@
-package com.warehouse.app.inventory;
+package com.warehouse.app.inventory.space;
 
 import com.warehouse.core.base.BaseService;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class SpaceService extends BaseService<Space, SpaceRepository> {
@@ -24,11 +21,5 @@ public class SpaceService extends BaseService<Space, SpaceRepository> {
         } else {
             return space.getName();
         }
-    }
-
-    @Override
-    public Space serialize(Space space) {
-        Hibernate.initialize(space.getParent());
-        return super.serialize(space);
     }
 }

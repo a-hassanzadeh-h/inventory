@@ -1,4 +1,4 @@
-package com.warehouse.app.accounting.purchase;
+package com.warehouse.app.accounting.purchase.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -21,6 +21,10 @@ public class Bill extends BaseEntity {
 
     @OneToMany(mappedBy = "bill", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderLine> orderLines = new ArrayList<>();
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private BillStatus status;
 
     public void setOrderLines(List<OrderLine> orderLines) {
         this.orderLines.clear();

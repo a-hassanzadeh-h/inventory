@@ -1,7 +1,7 @@
 package com.warehouse.app.product;
 
 import com.warehouse.app.accounting.orderLine.OrderLine;
-import com.warehouse.app.inventory.Stock;
+import com.warehouse.app.inventory.stock.Stock;
 import com.warehouse.core.base.BaseEntity;
 import lombok.Data;
 
@@ -24,6 +24,8 @@ public class Product extends BaseEntity {
 
     @OneToMany(mappedBy = "product")
     private List<Stock> stocks = new ArrayList<>();
+
+    private int volume;
 
 
     public void setSku(String sku) {
