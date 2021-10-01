@@ -1,5 +1,7 @@
 package com.warehouse.app.accounting.purchase;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.warehouse.app.accounting.orderLine.OrderLine;
 import com.warehouse.app.partner.Partner;
 import com.warehouse.core.base.BaseEntity;
@@ -11,17 +13,17 @@ import java.util.List;
 
 @Data
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Bill extends BaseEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "partner_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Partner partner;
 
-    @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bill", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderLine> orderLines = new ArrayList<>();
 
     public void setOrderLines(List<OrderLine> orderLines) {
-        this.orderLines = new ArrayList<>();
+        this.orderLines.clear();
         for (OrderLine line : orderLines) {
             line.setBill(this);
             this.orderLines.add(line);

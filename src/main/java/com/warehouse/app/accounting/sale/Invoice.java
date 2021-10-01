@@ -17,7 +17,6 @@ import java.util.List;
 public class Invoice extends BaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "partner_id")
     private Partner partner;
 
     private Date date;

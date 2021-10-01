@@ -1,7 +1,6 @@
 package com.warehouse.app.inventory;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import com.warehouse.core.base.BaseEntity;
 import lombok.Data;
 import lombok.ToString;
@@ -21,11 +20,9 @@ public class Space extends BaseEntity {
     @Column
     private int capacity;
 
-    @JsonBackReference("space-parent")
     @ManyToOne(fetch = FetchType.LAZY)
     private Space parent;
 
-    @JsonManagedReference("space-parent")
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent", orphanRemoval = true)
     private List<Space> children = new ArrayList<>();
 

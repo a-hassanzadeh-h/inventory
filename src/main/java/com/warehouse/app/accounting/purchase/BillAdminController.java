@@ -16,20 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin/bill")
 public class BillAdminController extends BaseController<Bill, BillService> {
 
-    private final PartnerService partnerService;
-
     @Autowired
-    public BillAdminController(BillService service, PartnerService partnerService) {
+    public BillAdminController(BillService service) {
         super(service);
-        this.partnerService = partnerService;
-    }
-
-    @Override
-    @PostMapping
-    public ResponseEntity<Bill> create(@RequestBody Bill bill) {
-        User user = AuthContext.getUser().orElseThrow();
-        Partner partner = partnerService.findByUser(user);
-        bill.setPartner(partner);
-        return ResponseEntity.ok(this.service.create(bill));
     }
 }

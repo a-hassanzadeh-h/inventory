@@ -9,10 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,19 +19,17 @@ import java.util.List;
 @AllArgsConstructor
 public class Partner extends BaseEntity {
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     private String firstName;
 
     private String lastName;
 
-    @OneToMany(mappedBy = "partner")
-    @JsonIgnore
+    @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)
     private List<Bill> bills = new ArrayList<>();
 
-    @OneToMany(mappedBy = "partner")
+    @OneToMany(mappedBy = "partner", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Invoice> invoices = new ArrayList<>();
 

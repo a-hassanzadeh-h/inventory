@@ -19,7 +19,7 @@ public class Product extends BaseEntity {
 
     private String sku;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<OrderLine> orderLine = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")

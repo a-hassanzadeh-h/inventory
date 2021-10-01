@@ -1,6 +1,9 @@
 package com.warehouse.app.accounting.orderLine;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.warehouse.app.accounting.purchase.Bill;
 import com.warehouse.app.accounting.sale.Invoice;
 import com.warehouse.app.inventory.Stock;
@@ -14,6 +17,7 @@ import java.util.List;
 
 @Data
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class OrderLine extends BaseEntity {
 
     @Column(nullable = false)
@@ -22,18 +26,14 @@ public class OrderLine extends BaseEntity {
     @Column(nullable = false)
     private double price;
 
-    @Column(nullable = false)
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Product> products;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "invoice_id")
     @JsonIgnore
     private Invoice invoice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bill_id")
-    @JsonIgnore
     private Bill bill;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderLine")
