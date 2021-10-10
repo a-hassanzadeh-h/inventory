@@ -18,9 +18,15 @@ spring:
     username: steve
     password: steve
 
+springdoc:
+  api-docs:
+    path: /docs
+  swagger-ui:
+    path: /docs/swagger
 auth:
   whitelist:
     - /auth/**
+    - /docs/**
   jwt:
     prefix: Bearer
     key: f85K#VzHazQFby$cal1b%gXAxnZ@JqV^JHiUPPg!lev8IyGeWzNBs8*rCNJ$MTuela0f9&8lOJNy*Y#G9o$&cl#WWA4l8d4zdwU

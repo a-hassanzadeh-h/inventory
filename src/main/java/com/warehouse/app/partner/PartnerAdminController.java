@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin/partner")
-public class PartnerController extends BaseController<Partner,PartnerService> {
+public class PartnerAdminController extends BaseController<Partner,PartnerService> {
 
     @Autowired
-    public PartnerController(PartnerService service) {
+    public PartnerAdminController(PartnerService service) {
         super(service);
     }
 

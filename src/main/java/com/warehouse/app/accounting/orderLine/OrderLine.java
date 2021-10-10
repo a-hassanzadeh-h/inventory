@@ -35,7 +35,7 @@ public class OrderLine extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Bill bill;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderLine")
-    private List<Stock> stocks = new ArrayList<>();
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderLine")
+//    private List<Stock> stocks = new ArrayList<>();
 
 }
